@@ -1,6 +1,9 @@
 var app = angular.module('myApp', []);
 
-app.controller('PlayerController', ['$scope', function($scope) {
+var apiKey = 'MDIwMDYxNzEyMDE0Mzg2MjgyNzJlMTM0NQ001',
+    nprUrl = 'http://api.npr.org/query?id=61&fields=relatedLink,title,byline,text,audio,image,pullQuote,all&output=JSON'
+
+app.controller('PlayerController', ['$scope', function($scope, $http) {
   $scope.playing = false;
   $scope.audio = document.createElement('audio');
   $scope.audio.src = '/media/gb.mp3';
@@ -16,6 +19,13 @@ app.controller('PlayerController', ['$scope', function($scope) {
     $scope.$apply(function() {
       $scope.stop();
     });
+  });
+  $http( {
+    method: 'JSONP',
+    url: nprUrl + '&apiKey' + apiKey + '&callback=JSON_CALLBACK'
+  }).success(function(data, status) {
+    $scope.programs = data.list.story;
+  }).error(function(data, status) {
   });
 }]);
 
