@@ -52,7 +52,7 @@ app.directive('nprLink', function() {
       ngModel: '=',
       play: '&'
     },
-    templateUrl: '/views/nprListItem.html',
+    templateUrl: 'views/nprListItem.html',
     link: function(scope, ele, attr) {
       scope.duration = scope.ngModel.audio[0].duration.$text;
     }
